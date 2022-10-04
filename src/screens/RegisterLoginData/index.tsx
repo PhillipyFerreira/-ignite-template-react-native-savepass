@@ -58,6 +58,21 @@ export function RegisterLoginData() {
     const dataKey = '@savepass:logins';
 
     // Save data on AsyncStorage and navigate to 'Home' screen
+    try {
+      const storage = await AsyncStorage.getItem(dataKey);
+      const storedPass = storage ? JSON.parse(storage) : [];
+
+      const passAlreadyExists = storedPass.includes(newLoginData);
+  
+      if(passAlreadyExists) {
+        return Alert.alert('Já existe um grupo cadastrado com esse nome.')
+      }
+
+      await AsyncStorage.setItem(dataKey, JSON.stringify([...storedPass, newLoginData]));
+
+    } catch (error) {
+      throw error;
+    }
   }
 
   return (
@@ -75,7 +90,7 @@ export function RegisterLoginData() {
             name="service_name"
             error={
               // Replace here with real content
-              'Has error ? show error message'
+              'Insira um nomme válido'
             }
             control={control}
             autoCapitalize="sentences"
@@ -87,7 +102,7 @@ export function RegisterLoginData() {
             name="email"
             error={
               // Replace here with real content
-              'Has error ? show error message'
+              'E-mail possui o padrão texto_livre@provedor_email.com'
             }
             control={control}
             autoCorrect={false}
@@ -100,7 +115,7 @@ export function RegisterLoginData() {
             name="password"
             error={
               // Replace here with real content
-              'Has error ? show error message'
+              'A senha deve conter no mínimo 8 caracteres'
             }
             control={control}
             secureTextEntry
