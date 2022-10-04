@@ -48,18 +48,28 @@ export function Home() {
   function handleFilterLoginData() {
     // Filter results inside data, save with setSearchListData
     
-    const matches = data.filter(element => { 
-      element.service_name.includes(searchText)
-    });
+    const filterByTitle = data.find(
+      (loginData) => loginData.service_name === searchText
+    );
 
-    setSearchListData(matches)
+    if (filterByTitle !== undefined) {
+      setSearchListData([filterByTitle]);
+      return;
+    }
+
+    if (data.length === searchListData.length) {
+      return;
+    }
+    setSearchListData(data);
+    return;
+
   }
 
   function handleChangeInputText(text: string) {
     // Update searchText value
-    if (text !== ''){
-      setSearchText(text);
-    }
+    setSearchText(text);
+
+    
   }
 
   useFocusEffect(useCallback(() => {
