@@ -73,6 +73,7 @@ export function RegisterLoginData() {
     } catch (error) {
       throw error;
     }
+    navigate("Home");
   }
 
   return (
@@ -88,10 +89,7 @@ export function RegisterLoginData() {
             testID="service-name-input"
             title="Nome do serviço"
             name="service_name"
-            error={
-              // Replace here with real content
-              'Insira um nomme válido'
-            }
+            error={errors.service_name?.message}
             control={control}
             autoCapitalize="sentences"
             autoCorrect
@@ -100,10 +98,7 @@ export function RegisterLoginData() {
             testID="email-input"
             title="E-mail ou usuário"
             name="email"
-            error={
-              // Replace here with real content
-              'E-mail possui o padrão texto_livre@provedor_email.com'
-            }
+            error={errors.email?.message}
             control={control}
             autoCorrect={false}
             autoCapitalize="none"
@@ -113,10 +108,7 @@ export function RegisterLoginData() {
             testID="password-input"
             title="Senha"
             name="password"
-            error={
-              // Replace here with real content
-              'A senha deve conter no mínimo 8 caracteres'
-            }
+            error={errors.password?.message}
             control={control}
             secureTextEntry
           />
